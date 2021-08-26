@@ -7,7 +7,7 @@ const formatDate = date =>
   ).padStart(2, '0')}.${String(date.getMilliseconds()).padStart(3, '0')}`
 
 // the delay argument is for faking things out a bit
-function fetchPokemon(name, delay = 1500) {
+function fetchPokemon(name) {
   const pokemonQuery = `
     query PokemonInfo($name: String) {
       pokemon(name: $name) {
@@ -32,7 +32,6 @@ function fetchPokemon(name, delay = 1500) {
       method: 'POST',
       headers: {
         'content-type': 'application/json;charset=UTF-8',
-        delay: delay,
       },
       body: JSON.stringify({
         query: pokemonQuery,
@@ -61,6 +60,7 @@ function fetchPokemon(name, delay = 1500) {
 
 function PokemonInfoFallback({name}) {
   const initialName = React.useRef(name).current
+  console.log(initialName.current)
   const fallbackPokemonData = {
     name: initialName,
     number: 'XXX',
